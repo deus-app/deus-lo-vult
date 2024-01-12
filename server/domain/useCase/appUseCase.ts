@@ -1,5 +1,7 @@
+import { llmRepo } from '../repository/llm/llmRepo';
+
 export const appUseCase = {
-  vult: async () => {
-    console.log('vult');
+  vult: () => {
+    llmRepo.initConversation();
   },
 };
