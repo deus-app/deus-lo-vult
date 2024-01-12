@@ -1,4 +1,5 @@
 import server from '$/$server';
+import { appUseCase } from '$/domain/useCase/appUseCase';
 import { API_BASE_PATH, CORS_ORIGIN, SUPABASE_JWT_SECRET } from '$/service/envValues';
 import cookie from '@fastify/cookie';
 import cors from '@fastify/cors';
@@ -19,6 +20,7 @@ export const init = (serverFactory?: FastifyServerFactory) => {
     cookie: { cookieName: COOKIE_NAME, signed: false },
   });
   server(app, { basePath: API_BASE_PATH });
+  appUseCase.vult();
 
   return app;
 };
