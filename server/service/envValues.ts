@@ -18,10 +18,14 @@ const S3_CUSTOM_ENDPOINT = z
   .optional()
   .parse(process.env.S3_CUSTOM_ENDPOINT === '' ? undefined : process.env.S3_CUSTOM_ENDPOINT);
 const OPENAI_KEY = z.string().parse(process.env.OPENAI_KEY);
+const CREATIO_API_ORIGIN = z.string().url().parse(process.env.CREATIO_API_ORIGIN);
+const DEUS_LO_VULT_TOKEN = z.string().parse(process.env.DEUS_LO_VULT_TOKEN);
 
 export {
   API_BASE_PATH,
   CORS_ORIGIN,
+  CREATIO_API_ORIGIN,
+  DEUS_LO_VULT_TOKEN,
   OPENAI_KEY,
   PORT,
   S3_ACCESS_KEY,

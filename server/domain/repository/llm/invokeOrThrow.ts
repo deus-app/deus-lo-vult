@@ -18,7 +18,6 @@ export const invokeOrThrow = async (prompt: string) => {
     .then((response) => {
       const content = response.choices[0].message.content;
       if (!content) throw new Error('No content');
-      console.log(content);
       return JSON.parse(content);
     })
     .catch((e) => {
