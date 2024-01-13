@@ -5,7 +5,8 @@ export const invokeOrThrow = async (prompt: string) => {
   return await openai.chat.completions
     .create({
       model: 'gpt-4-1106-preview',
-      temperature: 0,
+      temperature: 1,
+      response_format: { type: 'json_object' },
       messages: [
         {
           role: 'system',
@@ -15,10 +16,10 @@ export const invokeOrThrow = async (prompt: string) => {
       ],
     })
     .then((response) => {
-      console.log(response.choices[0].message.role);
       const content = response.choices[0].message.content;
+      if (!content) throw new Error('No content');
       console.log(content);
-      return content;
+      return JSON.parse(content);
     })
     .catch((e) => {
       console.error(e);
