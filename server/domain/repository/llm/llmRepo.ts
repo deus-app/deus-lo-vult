@@ -1,8 +1,9 @@
+import { invokeOrThrow } from './invokeOrThrow';
+import { prompts } from './prompts';
+
 export const llmRepo = {
-  initConversation: () => {
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      console.log('initConversation');
-    }
+  initConversation: async () => {
+    console.log('llmRepo.initConversation');
+    await invokeOrThrow(prompts.initConversation());
   },
 };

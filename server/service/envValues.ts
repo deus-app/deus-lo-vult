@@ -17,10 +17,12 @@ const S3_CUSTOM_ENDPOINT = z
   .url()
   .optional()
   .parse(process.env.S3_CUSTOM_ENDPOINT === '' ? undefined : process.env.S3_CUSTOM_ENDPOINT);
+const OPENAI_KEY = z.string().parse(process.env.OPENAI_KEY);
 
 export {
   API_BASE_PATH,
   CORS_ORIGIN,
+  OPENAI_KEY,
   PORT,
   S3_ACCESS_KEY,
   S3_BUCKET,
