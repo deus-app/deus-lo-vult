@@ -5,7 +5,30 @@ export const codeBlocks = {
 };
 
 export const prompts = {
-  webServiceIdea: () => 'これから売れるWebサービスの領域を1つ考えてください。',
-  followUp: (webServiceArea: string) =>
-    `${webServiceArea}について、解像度を高め、新規サービスの名前と、類似サービスを教えてください。`,
+  webServiceArea: () => 'これから売れるWebサービスの領域を1つ考えてください。',
+  webServiceIdea: (webServiceArea: string) =>
+    `${webServiceArea}について、解像度を高め、新規サービスを考えてください。`,
+  followUp: (ideaName: string, description: string) =>
+    `${ideaName}というサービスがあります。
+    サービスの説明は以下の通りです。
+    ${description}
+    
+    このサービスについて、フィードバックをください。
+    もし、このサービスがあなたの判断基準で95点以上と感じたら、返答のJsonのcompleteをtrueにしてください。`,
+  final: (ideaName: string, description: string) =>
+    `${ideaName}というサービスがあります。
+    サービスの説明は以下の通りです。
+    ${description}
+    
+    このサービスのサービス名を考えてください。
+    また、このサービスと似たサービスを教えてください。`,
+  improvement: (ideaName: string, description: string, feedback: string) =>
+    `${ideaName}というサービスがあります。
+    サービスの説明は以下の通りです。
+    ${description}
+    
+    これに対して以下のフィードバックをもらいました。
+    ${feedback}
+    
+    このフィードバックを元に、サービスを改善してください。`,
 };
