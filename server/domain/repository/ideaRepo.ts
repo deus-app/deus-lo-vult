@@ -5,7 +5,7 @@ export const ideaRepo = {
     id: string,
     name: string,
     description: string,
-    status: string,
+    status: 'complete' | 'incomplete',
     serviceId: string
   ) => {
     await prismaClient.idea.create({
