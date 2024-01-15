@@ -8,20 +8,13 @@ export const prompts = {
   webServiceArea: () => 'これから売れるWebサービスの領域を1つ考えてください。',
   webServiceIdea: (webServiceArea: string) =>
     `${webServiceArea}について、解像度を高め、新規サービスを考えてください。`,
-  followUp: (ideaName: string, description: string) =>
+  feedback: (ideaName: string, description: string) =>
     `${ideaName}というサービスがあります。
     サービスの説明は以下の通りです。
     ${description}
     
     このサービスについて、フィードバックをください。
     もし、このサービスがあなたの判断基準で95点以上と感じたら、返答のJsonのcompleteをtrueにしてください。`,
-  final: (ideaName: string, description: string) =>
-    `${ideaName}というサービスがあります。
-    サービスの説明は以下の通りです。
-    ${description}
-    
-    このサービスのサービス名を考えてください。
-    また、このサービスと似たサービスを教えてください。`,
   improvement: (ideaName: string, description: string, feedback: string) =>
     `${ideaName}というサービスがあります。
     サービスの説明は以下の通りです。
@@ -31,4 +24,11 @@ export const prompts = {
     ${feedback}
     
     このフィードバックを元に、サービスを改善してください。`,
+  complete: (ideaName: string, description: string) =>
+    `${ideaName}というサービスがあります。
+    サービスの説明は以下の通りです。
+    ${description}
+    
+    このサービスのサービス名を考えてください。
+    また、このサービスと似たサービスを教えてください。`,
 };

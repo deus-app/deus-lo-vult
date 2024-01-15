@@ -4,16 +4,17 @@ import { prompts } from './prompts';
 
 export const llmRepo = {
   initConversation: async () => {
-    const validator = z.object({ webServiceArea: z.string() });
-    const ideaValidater = z.object({ ideaName: z.string(), description: z.string() });
-    const followUpValidator = z.object({ feedback: z.string(), complete: z.boolean() });
-    const finalValidator = z.object({ name: z.string(), similarName: z.string() });
+    const webServiceAreaValidator = z.object({ webServiceArea: z.string() });
+    const webServiceIdeaValidater = z.object({ ideaName: z.string(), description: z.string() });
+    const feedbackValidator = z.object({ feedback: z.string(), complete: z.boolean() });
+    const completeValidator = z.object({ name: z.string(), similarName: z.string() });
 
-    const serviceArea = await invokeOrThrow(prompts.webServiceArea(), validator);
+    const serviceArea = await invokeOrThrow(prompts.webServiceArea(), webServiceAreaValidator);
     let serviceIdea = await invokeOrThrow(
       prompts.webServiceIdea(serviceArea.webServiceArea),
-      ideaValidater
+      webServiceIdeaValidater
     );
+
     let followUp: {
       feedback: string;
       complete: boolean;
@@ -21,21 +22,21 @@ export const llmRepo = {
 
     do {
       followUp = await invokeOrThrow(
-        prompts.followUp(serviceIdea.ideaName, serviceIdea.description),
-        followUpValidator
+        prompts.feedback(serviceIdea.ideaName, serviceIdea.description),
+        feedbackValidator
       );
 
       if (!followUp.complete) {
         serviceIdea = await invokeOrThrow(
           prompts.improvement(serviceIdea.ideaName, serviceIdea.description, followUp.feedback),
-          ideaValidater
+          webServiceIdeaValidater
         );
       }
     } while (!followUp.complete);
 
     return await invokeOrThrow(
-      prompts.final(serviceIdea.ideaName, serviceIdea.description),
-      finalValidator
+      prompts.complete(serviceIdea.ideaName, serviceIdea.description),
+      completeValidator
     );
   },
 };
