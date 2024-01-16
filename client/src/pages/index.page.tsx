@@ -1,111 +1,97 @@
-import type { TaskModel } from '$/api/@types/models';
-import { useAtom } from 'jotai';
-import type { ChangeEvent, FormEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { ElapsedTime } from 'src/components/ElapsedTime/ElapsedTime';
-import { Loading } from 'src/components/Loading/Loading';
-import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
-import { apiClient } from 'src/utils/apiClient';
-import { returnNull } from 'src/utils/returnNull';
-import { userAtom } from '../atoms/user';
-import { PrivateTask } from './@components/PrivateTask/PrivateTask';
+import type { ServiceModel } from '$/api/@types/models';
+import { Spacer } from '$/components/Spacer';
+import { ChatGPTIcon } from '$/components/icons/ChatGPTIcon';
+import { apiClient } from '$/utils/apiClient';
+import { returnNull } from '$/utils/returnNull';
+import type { MessageModel } from '@chatscope/chat-ui-kit-react';
+import {
+  Avatar,
+  ChatContainer,
+  MainContainer,
+  Message,
+  MessageList,
+} from '@chatscope/chat-ui-kit-react';
+import { useState } from 'react';
+import { NameLabel } from './@components/NameLabel/NameLabel';
+import { StatusIcon } from './@components/StatusIcon/StatusIcon';
 import styles from './index.module.css';
 
-const Home = () => {
-  const [user] = useAtom(userAtom);
-  const fileRef = useRef<HTMLInputElement | null>(null);
-  const [tasks, setTasks] = useState<TaskModel[]>();
-  const [label, setLabel] = useState('');
-  const [image, setImage] = useState<File>();
-  const [previewImageUrl, setPreviewImageUrl] = useState('');
-  const isPrivateTask = (task: TaskModel) => user?.id === task.author.userId;
+const Home = (service: ServiceModel) => {
+  const [services, setServices] = useState<ServiceModel[]>([]);
 
-  const inputLabel = (e: ChangeEvent<HTMLInputElement>) => {
-    setLabel(e.target.value);
+  const fetchServices = async () => {
+    const services = await apiClient.apps.$get().catch(returnNull);
+
+    if (services !== null) setServices(services);
   };
-  const inputFile = (e: ChangeEvent<HTMLInputElement>) => {
-    setImage(e.target.files?.[0]);
-  };
-  const fetchTasks = async () => {
-    const tasks = await apiClient.public.tasks.$get().catch(returnNull);
-
-    if (tasks !== null) setTasks(tasks);
-  };
-  const createTask = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!label || !fileRef.current) return;
-
-    await apiClient.private.tasks.post({ body: { label, image } }).catch(returnNull);
-    setLabel('');
-    setImage(undefined);
-    setPreviewImageUrl('');
-    fileRef.current.value = '';
-    await fetchTasks();
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, [user?.id]);
-
-  useEffect(() => {
-    if (!image) return;
-
-    const newUrl = URL.createObjectURL(image);
-    setPreviewImageUrl(newUrl);
-    return () => {
-      URL.revokeObjectURL(newUrl);
-    };
-  }, [image]);
-
-  if (!tasks) return <Loading visible />;
 
   return (
-    <>
-      <BasicHeader user={user} />
-      <div className={styles.container}>
-        <ul className={styles.tasks}>
-          {user && (
-            <li className={styles.createTask}>
-              <input
-                type="text"
-                placeholder="What is happening?!"
-                value={label}
-                onChange={inputLabel}
-                className={styles.createTaskInput}
-              />
-              {image && <img src={previewImageUrl} className={styles.taskImage} />}
-              <input
-                type="file"
-                ref={fileRef}
-                accept=".png,.jpg,.jpeg,.gif,.webp,.svg"
-                onChange={inputFile}
-              />
-              <button onClick={createTask} className={styles.postBtn}>
-                POST
-              </button>
-            </li>
-          )}
-          {tasks.map((task) => (
-            <div key={task.id}>
-              <li className={styles.taskHeader}>
-                <div className={styles.authorName}>{task.author.name}</div>
-                <ElapsedTime createdTime={task.createdTime} />
-              </li>
-              <li className={styles.label}>
-                {isPrivateTask(task) ? (
-                  <PrivateTask task={task} fetchTasks={fetchTasks} />
-                ) : (
-                  <span>{task.label}</span>
-                )}
-                {task.image && (
-                  <img src={task.image.url} alt={task.label} className={styles.taskImage} />
-                )}
-              </li>
-            </div>
-          ))}
-        </ul>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <StatusIcon status={service.status} />
+        <Spacer axis="x" size={12} />
+        <span className={styles.indexLabel}>No.{service.id}</span>
       </div>
-    </>
+      <div style={{ flex: 1, position: 'relative' }}>
+        <MainContainer className={styles.mainContainer}>
+          <ChatContainer style={{ background: 'transparent' }}>
+            <MessageList
+              style={{ background: 'transparent' }}
+              // typingIndicator={
+              //   props.app.status === 'running' &&
+              //   isClosed && (
+              //     <TypingIndicator
+              //       style={{ background: 'transparent' }}
+              //       content="ChatGPTが思考中"
+              //     />
+              //   )
+              // }
+            >
+              {service.ideas.map((idea) => {
+                return (
+                  <>
+                    <Message
+                      key={idea.id}
+                      model={{ type: 'custom' } as MessageModel}
+                      avatarPosition="tl"
+                    >
+                      <Avatar>
+                        <Spacer axis="y" size={26} />
+                        <Spacer axis="x" size={4} />
+                        <ChatGPTIcon size={32} fill="#fff" />
+                      </Avatar>
+                      <Message.CustomContent>
+                        <NameLabel name="GPT4-turbo" createdTime={idea.createdAt} />
+                        <Spacer axis="y" size={6} />
+                        <div>{idea.description}</div>
+                      </Message.CustomContent>
+                    </Message>
+                    {idea.feedback && (
+                      <Message
+                        key={idea.id}
+                        model={{ type: 'custom' } as MessageModel}
+                        avatarPosition="tr"
+                      >
+                        <Avatar>
+                          <Spacer axis="y" size={26} />
+                          <Spacer axis="x" size={4} />
+                          <ChatGPTIcon size={32} fill="#fff" />
+                        </Avatar>
+                        <Message.CustomContent>
+                          <NameLabel name="GPT4-turbo" createdTime={idea.feedback.createdAt} />
+                          <Spacer axis="y" size={6} />
+                          <div>{idea.feedback.feedback}</div>
+                        </Message.CustomContent>
+                      </Message>
+                    )}
+                  </>
+                );
+              })}
+            </MessageList>
+          </ChatContainer>
+        </MainContainer>
+      </div>
+    </div>
   );
 };
 

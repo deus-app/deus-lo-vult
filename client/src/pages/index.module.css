@@ -1,83 +1,32 @@
 .container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.tasks {
-  width: 600px;
-  margin: 0 auto;
-  text-align: left;
-  list-style-type: none;
-  border-right: 1px solid #eee;
-  border-left: 1px solid #eee;
-}
-
-.createTask {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #fff5;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
 }
 
-.createTaskInput {
-  width: 400px;
-  padding: 4px;
-  border: none;
-}
-
-.taskHeader {
+.header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 16px 8px;
+  height: 48px;
+  padding: 0 12px;
+  color: #fff;
+  background: #fff1;
+  border-bottom: 1px solid #fff5;
 }
 
-.authorName {
-  display: flex;
-  gap: 8px;
-  align-self: center;
-  font-size: 20px;
+.indexLabel {
+  margin-right: auto;
+  font-size: 18px;
   font-weight: bold;
-  color: #555;
 }
 
-.label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px 16px 16px;
-  border-bottom: 1px solid #eee;
-}
-
-.label > label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.mainContainer {
+  position: absolute;
   width: 100%;
-}
-
-.postBtn {
-  display: flex;
-  align-self: flex-end;
-  padding: 2px;
-}
-
-.taskImage {
-  width: 70%;
-  border: 1px solid #eee;
-  border-radius: 8px;
-}
-
-@media screen and (max-width: 640px) {
-  .tasks {
-    width: 100%;
-    border: none;
-  }
-
-  .labelInput,
-  .createTaskInput {
-    width: 100%;
-  }
+  background: #fff1;
+  border: none;
 }
