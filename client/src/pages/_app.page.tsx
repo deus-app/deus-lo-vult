@@ -1,12 +1,11 @@
-import { Auth } from '@supabase/auth-ui-react';
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { gaPageview } from 'src/utils/gtag';
-import { supabase } from 'src/utils/supabase';
+import '../styles/chat-ui-kit.css';
 import '../styles/globals.css';
-import { AuthLoader } from './@components/AuthLoader';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const SafeHydrate = dynamic(() => import('../components/SafeHydrate'), { ssr: false });
@@ -28,9 +27,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SafeHydrate>
         <Component {...pageProps} />
       </SafeHydrate>
-      <Auth.UserContextProvider supabaseClient={supabase}>
+      {/* <Auth.UserContextProvider supabaseClient={supabase}>
         <AuthLoader />
-      </Auth.UserContextProvider>
+      </Auth.UserContextProvider> */}
     </>
   );
 }
