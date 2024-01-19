@@ -5,11 +5,12 @@ export const ideaRepo = {
     id: string,
     name: string,
     description: string,
-    status: 'complete' | 'incomplete',
+    status: 'complete' | 'incomplete' | 'unreceived',
     serviceId: string
   ) => {
-    await prismaClient.idea.create({
-      data: {
+    await prismaClient.idea.upsert({
+      where: { id },
+      create: {
         id,
         name,
         description,
@@ -17,6 +18,7 @@ export const ideaRepo = {
         createdAt: new Date(),
         serviceId,
       },
+      update: {status}
     });
   },
 };

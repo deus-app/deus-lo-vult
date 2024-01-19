@@ -8,7 +8,7 @@ export type TaskModel = {
 };
 
 export const SERVICE_STATUS = ['finished', 'unfinished'] as const;
-export const IDEA_STATUS = ['complete', 'incomplete'] as const;
+export const IDEA_STATUS = ['complete', 'incomplete', 'unreceived'] as const;
 
 export type ServiceModel = {
   id: string;
@@ -24,7 +24,7 @@ export type IdeaModel = {
   id: string;
   name: string;
   description: string;
-  status: 'complete' | 'incomplete';
+  status: 'complete' | 'incomplete' | 'unreceived';
   createdAt: number;
   feedback: FeedbackModel | undefined;
 };
