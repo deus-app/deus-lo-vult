@@ -48,61 +48,74 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      {service && (
-        <div className={styles.header}>
-          <StatusIcon status={service.status} />
-          <Spacer axis="x" size={12} />
-          <button onClick={() => changeService('prev')}>&lt;</button>
-          <Spacer axis="x" size={12} />
-          <span className={styles.indexLabel}>No.{currentServiceIndex}</span>
-          <button onClick={() => changeService('next')}>&gt;</button>
-        </div>
-      )}
+      <div className={styles.header}>
+        {service && (
+          <>
+            <StatusIcon status={service.status} />
+            <Spacer axis="x" size={12} />
+            <button onClick={() => changeService('prev')}>&lt;</button>
+            <Spacer axis="x" size={12} />
+            <span className={styles.indexLabel}>No.{currentServiceIndex}</span>
+            <button onClick={() => changeService('next')}>&gt;</button>
+          </>
+        )}
+      </div>
       <div style={{ flex: 1, position: 'relative' }}>
         <MainContainer className={styles.mainContainer}>
           <ChatContainer style={{ background: 'transparent' }}>
             <MessageList style={{ background: 'transparent' }}>
+              {service && (
+                <Message model={{ type: 'custom' } as MessageModel} avatarPosition="tl">
+                  <Avatar>
+                    <Spacer axis="y" size={26} />
+                    <Spacer axis="x" size={4} />
+                    <ChatGPTIcon size={32} fill="#fff" />
+                  </Avatar>
+                  <Message.CustomContent>
+                    <NameLabel name="GPT4-turbo" createdTime={service.createdAt} />
+                    <Spacer axis="y" size={6} />
+                    <div>サービス領域：</div>
+                    <div>{service.area}</div>
+                  </Message.CustomContent>
+                </Message>
+              )}
               {service &&
-                service.ideas.map((idea) => {
-                  return (
-                    <>
-                      <Message
-                        key={idea.id}
-                        model={{ type: 'custom' } as MessageModel}
-                        avatarPosition="tl"
-                      >
-                        <Avatar>
-                          <Spacer axis="y" size={26} />
-                          <Spacer axis="x" size={4} />
-                          <ChatGPTIcon size={32} fill="#fff" />
-                        </Avatar>
-                        <Message.CustomContent>
-                          <NameLabel name="GPT4-turbo" createdTime={idea.createdAt} />
-                          <Spacer axis="y" size={6} />
-                          <div>{idea.description}</div>
-                        </Message.CustomContent>
-                      </Message>
-                      {idea.feedback && (
-                        <Message
-                          key={idea.id}
-                          model={{ type: 'custom', direction: 'outgoing' } as MessageModel}
-                          avatarPosition="tr"
-                        >
-                          <Avatar>
-                            <Spacer axis="y" size={26} />
-                            <Spacer axis="x" size={4} />
-                            <ChatGPTIcon size={32} fill="#aaa" />
-                          </Avatar>
-                          <Message.CustomContent>
-                            <NameLabel name="GPT4-turbo" createdTime={idea.feedback.createdAt} />
-                            <Spacer axis="y" size={6} />
-                            <div>{idea.feedback.feedback}</div>
-                          </Message.CustomContent>
-                        </Message>
-                      )}
-                    </>
-                  );
-                })}
+                service.ideas.map((idea) => [
+                  <Message
+                    key={idea.id}
+                    model={{ type: 'custom' } as MessageModel}
+                    avatarPosition="tl"
+                  >
+                    <Avatar>
+                      <Spacer axis="y" size={26} />
+                      <Spacer axis="x" size={4} />
+                      <ChatGPTIcon size={32} fill="#fff" />
+                    </Avatar>
+                    <Message.CustomContent>
+                      <NameLabel name="GPT4-turbo" createdTime={idea.createdAt} />
+                      <Spacer axis="y" size={6} />
+                      <div>{idea.description}</div>
+                    </Message.CustomContent>
+                  </Message>,
+                  idea.feedback && (
+                    <Message
+                      key={`${idea.id}-feedback`}
+                      model={{ type: 'custom', direction: 'outgoing' } as MessageModel}
+                      avatarPosition="tr"
+                    >
+                      <Avatar>
+                        <Spacer axis="y" size={26} />
+                        <Spacer axis="x" size={4} />
+                        <ChatGPTIcon size={32} fill="#aaa" />
+                      </Avatar>
+                      <Message.CustomContent>
+                        <NameLabel name="GPT4-turbo" createdTime={idea.feedback.createdAt} />
+                        <Spacer axis="y" size={6} />
+                        <div>{idea.feedback.feedback}</div>
+                      </Message.CustomContent>
+                    </Message>
+                  ),
+                ])}
               {service && service.name && service.similarName && (
                 <Message model={{ type: 'custom' } as MessageModel} avatarPosition="tl">
                   <Avatar>
