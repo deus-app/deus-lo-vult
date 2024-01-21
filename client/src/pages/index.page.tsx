@@ -86,7 +86,7 @@ const Home = () => {
                   <Avatar>
                     <Spacer axis="y" size={26} />
                     <Spacer axis="x" size={4} />
-                    <ChatGPTIcon size={32} fill="#fff" />
+                    <ChatGPTIcon size={32} fill="#000" />
                   </Avatar>
                   <Message.CustomContent>
                     <NameLabel name="GPT4-turbo" createdTime={currentService.createdAt} />
@@ -106,7 +106,7 @@ const Home = () => {
                     <Avatar>
                       <Spacer axis="y" size={26} />
                       <Spacer axis="x" size={4} />
-                      <ChatGPTIcon size={32} fill="#fff" />
+                      <ChatGPTIcon size={32} fill="#000" />
                     </Avatar>
                     <Message.CustomContent>
                       <NameLabel name="GPT4-turbo" createdTime={idea.createdAt} />
@@ -123,7 +123,7 @@ const Home = () => {
                       <Avatar>
                         <Spacer axis="y" size={26} />
                         <Spacer axis="x" size={4} />
-                        <ChatGPTIcon size={32} fill="#aaa" />
+                        <ChatGPTIcon size={32} fill="#000" />
                       </Avatar>
                       <Message.CustomContent>
                         <NameLabel name="GPT4-turbo" createdTime={idea.feedback.createdAt} />
@@ -138,7 +138,7 @@ const Home = () => {
                   <Avatar>
                     <Spacer axis="y" size={26} />
                     <Spacer axis="x" size={4} />
-                    <ChatGPTIcon size={32} fill="#fff" />
+                    <ChatGPTIcon size={32} fill="#000" />
                   </Avatar>
                   <Message.CustomContent>
                     <NameLabel name="GPT4-turbo" createdTime={currentService.createdAt} />

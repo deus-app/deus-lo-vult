@@ -1,9 +1,14 @@
 /* stylelint-disable selector-class-pattern */
 .cs-message__content {
   margin-top: 16px;
-  color: #fff !important;
-  background: #fff1 !important;
+  color: #333 !important;
+  background: #3af !important;
   border: none;
+}
+
+.cs-message--outgoing .cs-message__content {
+  color: #333 !important;
+  background: #d9d9d9 !important;
 }
 
 .cs-message__sent-time {
