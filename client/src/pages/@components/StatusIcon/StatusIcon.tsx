@@ -22,7 +22,7 @@ const CrossMark = () => {
 
 export const StatusIcon = (props: { status: ServiceModel['status'] }) => {
   return {
-    finished: <div className={styles.loader} />,
-    unfinished: <CheckMark />,
+    finished: <CheckMark />,
+    unfinished: <div className={styles.loader} />,
   }[props.status];
 };
