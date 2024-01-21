@@ -6,7 +6,7 @@ node_modules/
 out/
 
 # misc
-src/api/*
+api/*
 *.css.d.ts
 *.css.d.ts.map
 $*.ts

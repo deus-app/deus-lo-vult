@@ -1,5 +1,5 @@
+import type { ServiceModel } from 'api/@types';
 import type { DefineMethods } from 'aspida';
-import type { ServiceModel } from '../@types/models';
 
 export type Methods = DefineMethods<{
   get: {

@@ -3,7 +3,6 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
-    "paths": { "$/*": ["./src/*"] },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,5 +19,5 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "src/api/**/*.ts"]
+  "exclude": ["node_modules", "api/**/*.ts"]
 }

@@ -1,5 +1,5 @@
-import type { TaskModel } from '$/api/@types/models';
 import type { DefineMethods } from 'aspida';
+import type { TaskModel } from '../../@types';
 
 export type Methods = DefineMethods<{
   post: {

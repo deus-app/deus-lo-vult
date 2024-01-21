@@ -1,5 +1,5 @@
-import { serviceRepo } from '$/domain/repository/serviceRepo';
-import { prismaClient } from '$/service/prismaClient';
+import { serviceRepo } from 'domain/app/serviceRepo';
+import { prismaClient } from 'service/prismaClient';
 import { defineController } from './$relay';
 
 export default defineController(() => ({

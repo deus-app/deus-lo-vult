@@ -35,8 +35,9 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
     complexity: ['error', 5],
-    'max-depth': ['error', 2],
+    'max-depth': ['error', 3],
     'max-nested-callbacks': ['error', 3],
     'max-lines': ['error', 200],
   },
@@ -44,6 +45,14 @@ module.exports = {
     {
       files: ['*.js'],
       rules: { '@typescript-eslint/no-var-requires': ['off'] },
+    },
+    {
+      files: ['server/**/*.ts'],
+      rules: { '@typescript-eslint/explicit-function-return-type': ['error'] },
+    },
+    {
+      files: ['server/api/**/controller.ts', 'server/api/**/hooks.ts'],
+      rules: { '@typescript-eslint/explicit-function-return-type': ['off'] },
     },
   ],
 };

@@ -7,9 +7,6 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "baseUrl": ".",
-    "paths": {
-      "$/*": ["./*"]
-    },
     "rootDir": ".",
     "skipLibCheck": true,
     "strict": true,

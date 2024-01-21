@@ -1,14 +1,14 @@
-import { init } from '$/service/app';
-import { PORT } from '$/service/envValues';
-import { prismaClient } from '$/service/prismaClient';
 import { exec } from 'child_process';
 import type { FastifyInstance } from 'fastify';
 import util from 'util';
 import { afterAll, afterEach, beforeAll, beforeEach } from 'vitest';
+import { init } from '../service/app';
+import { PORT } from '../service/envValues';
+import { prismaClient } from '../service/prismaClient';
 
 let server: FastifyInstance;
 
-const unneededServer = (file: { filepath?: string } | undefined) =>
+const unneededServer = (file: { filepath?: string } | undefined): boolean =>
   !/\/tests\/api\/.+\.test\.ts$/.test(file?.filepath ?? '');
 
 beforeAll(async (info) => {
@@ -22,7 +22,6 @@ beforeEach(async (info) => {
   if (unneededServer(info.task.file)) return;
 
   await util.promisify(exec)('npx prisma migrate reset --force');
-  await util.promisify(exec)('npx prisma db seed');
 });
 
 afterEach(async (info) => {

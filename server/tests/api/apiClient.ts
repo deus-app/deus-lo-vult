@@ -1,7 +1,7 @@
-import { API_BASE_PATH, PORT } from '$/service/envValues';
 import aspida from '@aspida/axios';
 import axios from 'axios';
 import api from '../../api/$api';
+import { API_BASE_PATH, PORT } from '../../service/envValues';
 
 const agent = axios.create();
 export const apiClient = api(

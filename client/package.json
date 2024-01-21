@@ -16,7 +16,7 @@
     "generate": "run-p generate:*",
     "generate:aspida": "aspida",
     "generate:path": "pathpida --ignorePath ../.gitignore -s",
-    "hcm": "hcm 'src/**/*.module.css'",
+    "hcm": "hcm '**/*.module.css'",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:updateSnapshot": "vitest -u",

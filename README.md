@@ -1,6 +1,6 @@
 # Deus Template
 
-フロントエンドは src ディレクトリの [Next.js](https://nextjs.org/) 、バックエンドは server ディレクトリの [frourio](https://frourio.com/) で構築された TypeScript で一気通貫開発が可能なモノレポサービス
+フロントエンドは client ディレクトリの [Next.js](https://nextjs.org/) 、バックエンドは server ディレクトリの [frourio](https://frourio.com/) で構築された TypeScript で一気通貫開発が可能なモノレポサービス
 
 最新のコミットによるデモ - https://solufa.github.io/next-frourio-starter/
 
@@ -34,14 +34,9 @@ $ cp docker/dev/.env.example docker/dev/.env
 
 ```sh
 $ docker compose up -d
-$ cd ..
-$ git clone --depth 1 https://github.com/supabase/supabase
-$ cd supabase/docker
-$ cp .env.example .env
-$ sed -i 's#"/auth/v1/verify"#"http://localhost:8000/auth/v1/verify"#g' .env
-$ docker compose -f docker-compose.yml -f dev/docker-compose.dev.yml up -d
-$ cd ../../deus-template
 ```
+
+Creatio の README 通りに Supabase を起動 (GitHub Auth 関連の環境変数は無くても動く)
 
 ### 開発サーバー起動
 
