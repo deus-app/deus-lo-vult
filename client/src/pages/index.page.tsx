@@ -70,9 +70,10 @@ const Home = () => {
           <>
             <StatusIcon status={currentService.status} />
             <Spacer axis="x" size={12} />
+            <span className={styles.indexLabel}>No.{currentServiceId}</span>
+            <Spacer axis="x" size={12} />
             <button onClick={() => changeService('prev')}>&lt;</button>
             <Spacer axis="x" size={12} />
-            <span className={styles.indexLabel}>No.{currentServiceId}</span>
             <button onClick={() => changeService('next')}>&gt;</button>
           </>
         )}
