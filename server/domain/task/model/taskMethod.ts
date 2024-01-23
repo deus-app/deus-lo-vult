@@ -1,5 +1,5 @@
 import type { MultipartFile } from '@fastify/multipart';
-import type { TaskModel, UserEntity } from 'api/@types';
+import type { TaskEntity, UserEntity } from 'api/@types';
 import { randomUUID } from 'crypto';
 import { S3_PREFIX } from 'service/constants';
 
@@ -12,7 +12,7 @@ const dataToUrl = (data: MultipartFile): { url: string; s3Key: string } => {
 export type DeletableTaskId = { type: 'DeletableTask'; val: string };
 
 export const taskMethod = {
-  create: (user: UserEntity, label: string, data: MultipartFile | undefined): TaskModel => ({
+  create: (user: UserEntity, label: string, data: MultipartFile | undefined): TaskEntity => ({
     id: randomUUID(),
     done: false,
     label,
@@ -20,16 +20,16 @@ export const taskMethod = {
     createdTime: Date.now(),
     author: { userId: user.id, name: user.name },
   }),
-  deleteOrThrow: (user: UserEntity, task: TaskModel): DeletableTaskId => {
+  deleteOrThrow: (user: UserEntity, task: TaskEntity): DeletableTaskId => {
     if (user.id !== task.author.userId) throw new Error('cannot delete');
 
     return { type: 'DeletableTask', val: task.id };
   },
   updateOrThrow: (
     user: UserEntity,
-    task: TaskModel,
+    task: TaskEntity,
     updateData: { done: boolean; label: string }
-  ): TaskModel => {
+  ): TaskEntity => {
     if (user.id !== task.author.userId) throw new Error('cannot update task');
 
     return { ...task, ...updateData };

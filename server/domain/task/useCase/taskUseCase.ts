@@ -1,5 +1,5 @@
 import type { MultipartFile } from '@fastify/multipart';
-import type { TaskModel, UserEntity } from 'api/@types';
+import type { TaskEntity, UserEntity } from 'api/@types';
 import { taskMethod } from 'domain/task/model/taskMethod';
 import { taskRepo } from 'domain/task/repository/taskRepo';
 import { s3 } from 'service/s3';
@@ -9,7 +9,7 @@ export const taskUseCase = {
     user: UserEntity,
     label: string,
     image: MultipartFile | undefined
-  ): Promise<TaskModel> => {
+  ): Promise<TaskEntity> => {
     const task = taskMethod.create(user, label, image);
 
     if (image !== undefined && task.image !== undefined) {
@@ -31,7 +31,7 @@ export const taskUseCase = {
     taskId: string,
     done: boolean,
     label: string
-  ): Promise<TaskModel> => {
+  ): Promise<TaskEntity> => {
     const task = await taskRepo.findByIdOrThrow(taskId);
     const newTask = taskMethod.updateOrThrow(user, task, { done, label });
 

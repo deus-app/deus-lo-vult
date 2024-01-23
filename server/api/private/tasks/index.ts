@@ -1,4 +1,4 @@
-import type { TaskModel } from 'api/@types';
+import type { TaskEntity } from 'api/@types';
 import type { DefineMethods } from 'aspida';
 
 export type Methods = DefineMethods<{
@@ -8,7 +8,7 @@ export type Methods = DefineMethods<{
       label: string;
       image?: Blob;
     };
-    resBody: TaskModel;
+    resBody: TaskEntity;
   };
 
   patch: {
@@ -18,7 +18,7 @@ export type Methods = DefineMethods<{
       label: string;
     };
     status: 204;
-    resBody: TaskModel;
+    resBody: TaskEntity;
   };
 
   delete: {

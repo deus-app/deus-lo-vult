@@ -3,7 +3,7 @@ export type UserEntity = {
   name: string;
 };
 
-export type TaskModel = {
+export type TaskEntity = {
   id: string;
   label: string;
   done: boolean;

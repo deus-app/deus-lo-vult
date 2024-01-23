@@ -1,10 +1,10 @@
-import type { TaskModel } from 'api/@types';
+import type { TaskEntity } from 'api/@types';
 import { useState, type ChangeEvent } from 'react';
 import { apiClient } from 'utils/apiClient';
 import { returnNull } from 'utils/returnNull';
 import styles from './PrivateTask.module.css';
 
-export const PrivateTask = (props: { task: TaskModel; fetchTasks: () => Promise<void> }) => {
+export const PrivateTask = (props: { task: TaskEntity; fetchTasks: () => Promise<void> }) => {
   const { task } = props;
   const [editingTaskId, setEditingTaskId] = useState<string>();
   const [editingLabel, setEditingLabel] = useState<string>('');
