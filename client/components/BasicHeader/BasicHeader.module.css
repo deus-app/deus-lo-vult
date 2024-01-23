@@ -43,7 +43,7 @@
 }
 
 .userIcon {
-  border-radius: 50%;
+  display: none;
 }
 
 .loginText {
@@ -114,7 +114,8 @@
     display: none;
   }
 
-  .hamburgerIcon {
+  .hamburgerIcon,
+  .userIcon {
     display: block;
   }
 }

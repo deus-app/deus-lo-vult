@@ -1,3 +1,4 @@
+import type { UserEntity } from 'api/@types';
 import assert from 'assert';
 import { prismaClient } from 'service/prismaClient';
 import { defineController } from './$relay';
@@ -11,11 +12,16 @@ export default defineController(() => ({
         const user = await prismaClient.user.findUnique({ where: { id: req.jwtUser.sub } });
         if (user !== null) return user;
 
-        const newUser = { id: req.jwtUser.sub, name: req.jwtUser.sub.split('-')[0] };
+        const newUser: UserEntity = {
+          id: req.jwtUser.sub,
+          name: req.jwtUser.user_metadata.name,
+          photoURL: req.jwtUser.user_metadata.avatar_url,
+        };
+
         await prismaClient.user.upsert({
           where: { id: newUser.id },
-          update: { name: newUser.name },
-          create: { id: newUser.id, name: newUser.name },
+          update: { name: newUser.name, photoURL: newUser.photoURL },
+          create: newUser,
         });
       },
     },

@@ -8,9 +8,10 @@ generator client {
 }
 
 model User {
-  id    String @id
-  name  String
-  tasks Task[]
+  id       String  @id
+  name     String
+  photoURL String?
+  tasks    Task[]
 }
 
 model Task {

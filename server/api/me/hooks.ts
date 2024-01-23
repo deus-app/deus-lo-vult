@@ -5,7 +5,10 @@ import { prismaClient } from 'service/prismaClient';
 import { defineHooks } from './$relay';
 
 export type AdditionalRequest = {
-  [Key in typeof JWT_PROP_NAME]: { sub: string; role: 'authenticated' | 'anon' };
+  [Key in typeof JWT_PROP_NAME]: {
+    sub: string;
+    user_metadata: { name: string; avatar_url?: string };
+  };
 } & { user: UserEntity };
 
 export default defineHooks(() => ({
@@ -27,6 +30,6 @@ export default defineHooks(() => ({
       return;
     }
 
-    req.user = user;
+    req.user = { id: user.id, name: user.name, photoURL: user.photoURL ?? undefined };
   },
 }));

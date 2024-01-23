@@ -13,7 +13,7 @@ const toModel = (task: Task & { User: User }): TaskEntity => ({
     task.imageKey === null
       ? undefined
       : { url: `${S3_PREFIX}${task.imageKey}`, s3Key: task.imageKey },
-  author: { userId: task.userId, name: task.User.name },
+  author: { id: task.userId, name: task.User.name, photoURL: task.User.photoURL ?? undefined },
 });
 
 export const taskRepo = {
@@ -23,7 +23,7 @@ export const taskRepo = {
       update: { done: task.done, label: task.label, imageKey: task.image?.s3Key },
       create: {
         id: task.id,
-        userId: task.author.userId,
+        userId: task.author.id,
         done: task.done,
         label: task.label,
         imageKey: task.image?.s3Key,

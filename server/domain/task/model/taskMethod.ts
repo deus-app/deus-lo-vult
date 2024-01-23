@@ -18,10 +18,10 @@ export const taskMethod = {
     label,
     image: data === undefined ? undefined : dataToUrl(data),
     createdTime: Date.now(),
-    author: { userId: user.id, name: user.name },
+    author: user,
   }),
   deleteOrThrow: (user: UserEntity, task: TaskEntity): DeletableTaskId => {
-    if (user.id !== task.author.userId) throw new Error('cannot delete');
+    if (user.id !== task.author.id) throw new Error('cannot delete');
 
     return { type: 'DeletableTask', val: task.id };
   },
@@ -30,7 +30,7 @@ export const taskMethod = {
     task: TaskEntity,
     updateData: { done: boolean; label: string }
   ): TaskEntity => {
-    if (user.id !== task.author.userId) throw new Error('cannot update task');
+    if (user.id !== task.author.id) throw new Error('cannot update task');
 
     return { ...task, ...updateData };
   },
