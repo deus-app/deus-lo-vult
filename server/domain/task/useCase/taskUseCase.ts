@@ -1,12 +1,12 @@
 import type { MultipartFile } from '@fastify/multipart';
-import type { TaskModel, User } from 'api/@types';
+import type { TaskModel, UserEntity } from 'api/@types';
 import { taskMethod } from 'domain/task/model/taskMethod';
 import { taskRepo } from 'domain/task/repository/taskRepo';
 import { s3 } from 'service/s3';
 
 export const taskUseCase = {
   create: async (
-    user: User,
+    user: UserEntity,
     label: string,
     image: MultipartFile | undefined
   ): Promise<TaskModel> => {
@@ -20,13 +20,18 @@ export const taskUseCase = {
 
     return task;
   },
-  delete: async (user: User, taskId: string): Promise<void> => {
+  delete: async (user: UserEntity, taskId: string): Promise<void> => {
     const task = await taskRepo.findByIdOrThrow(taskId);
     const deletableTaskId = taskMethod.deleteOrThrow(user, task);
 
     await taskRepo.delete(deletableTaskId);
   },
-  update: async (user: User, taskId: string, done: boolean, label: string): Promise<TaskModel> => {
+  update: async (
+    user: UserEntity,
+    taskId: string,
+    done: boolean,
+    label: string
+  ): Promise<TaskModel> => {
     const task = await taskRepo.findByIdOrThrow(taskId);
     const newTask = taskMethod.updateOrThrow(user, task, { done, label });
 

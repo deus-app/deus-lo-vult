@@ -1,4 +1,4 @@
-import type { User } from 'api/@types';
+import type { UserEntity } from 'api/@types';
 import assert from 'assert';
 import type { JWT_PROP_NAME } from 'service/constants';
 import { prismaClient } from 'service/prismaClient';
@@ -6,7 +6,7 @@ import { defineHooks } from './$relay';
 
 export type AdditionalRequest = {
   [Key in typeof JWT_PROP_NAME]: { sub: string; role: 'authenticated' | 'anon' };
-} & { user: User };
+} & { user: UserEntity };
 
 export default defineHooks(() => ({
   onRequest: async (req, res) => {

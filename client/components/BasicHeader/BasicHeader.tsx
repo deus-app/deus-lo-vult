@@ -1,6 +1,6 @@
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import type { User } from 'api/@types';
+import type { UserEntity } from 'api/@types';
 import { Modal, ModalBody } from 'components/Modal/Modal';
 import { useState } from 'react';
 import { APP_NAME } from 'utils/constants';
@@ -15,7 +15,7 @@ const Hamburger = () => {
   );
 };
 
-export const BasicHeader = (props: { user: User | null }) => {
+export const BasicHeader = (props: { user: UserEntity | null }) => {
   const [opened, setOpened] = useState<boolean>(false);
   const onLogout = async () => {
     setOpened(false);
