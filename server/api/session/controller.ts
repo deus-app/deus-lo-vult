@@ -1,6 +1,6 @@
 import type { CookieSerializeOptions } from '@fastify/cookie';
+import { COOKIE_NAME } from 'service/constants';
 import type { Methods } from '.';
-import { COOKIE_NAME } from '../../service/constants';
 import { defineController } from './$relay';
 
 export type AdditionalRequest = {

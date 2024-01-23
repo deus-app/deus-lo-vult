@@ -1,7 +1,7 @@
+import type { TaskModel } from 'api/@types';
 import { useState, type ChangeEvent } from 'react';
-import type { TaskModel } from '../../api/@types';
-import { apiClient } from '../../utils/apiClient';
-import { returnNull } from '../../utils/returnNull';
+import { apiClient } from 'utils/apiClient';
+import { returnNull } from 'utils/returnNull';
 import styles from './PrivateTask.module.css';
 
 export const PrivateTask = (props: { task: TaskModel; fetchTasks: () => Promise<void> }) => {

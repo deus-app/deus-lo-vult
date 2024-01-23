@@ -1,7 +1,7 @@
 import { Head, Html, Main, NextScript } from 'next/document';
-import { staticPath } from '../utils/$path';
-import { APP_NAME } from '../utils/constants';
-import { GA_ID } from '../utils/gtag';
+import { staticPath } from 'utils/$path';
+import { APP_NAME } from 'utils/constants';
+import { GA_ID } from 'utils/gtag';
 
 function Document() {
   return (

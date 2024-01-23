@@ -1,4 +1,4 @@
-import { S3_BUCKET, S3_CUSTOM_ENDPOINT, S3_ENDPOINT } from '../service/envValues';
+import { S3_BUCKET, S3_CUSTOM_ENDPOINT, S3_ENDPOINT } from './envValues';
 
 export const COOKIE_NAME = 'session';
 export const JWT_PROP_NAME = 'jwtUser';

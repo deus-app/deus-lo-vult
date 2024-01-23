@@ -1,10 +1,10 @@
 import { exec } from 'child_process';
 import type { FastifyInstance } from 'fastify';
+import { init } from 'service/app';
+import { PORT } from 'service/envValues';
+import { prismaClient } from 'service/prismaClient';
 import util from 'util';
 import { afterAll, afterEach, beforeAll, beforeEach } from 'vitest';
-import { init } from '../service/app';
-import { PORT } from '../service/envValues';
-import { prismaClient } from '../service/prismaClient';
 
 let server: FastifyInstance;
 

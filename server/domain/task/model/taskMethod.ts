@@ -1,7 +1,7 @@
 import type { MultipartFile } from '@fastify/multipart';
+import type { TaskModel, User } from 'api/@types';
 import { randomUUID } from 'crypto';
-import type { TaskModel, User } from '../../../api/@types';
-import { S3_PREFIX } from '../../../service/constants';
+import { S3_PREFIX } from 'service/constants';
 
 const dataToUrl = (data: MultipartFile): { url: string; s3Key: string } => {
   const s3Key = `tasks/images/${randomUUID()}.${data.filename.split('.').at(-1)}`;
@@ -11,7 +11,7 @@ const dataToUrl = (data: MultipartFile): { url: string; s3Key: string } => {
 
 export type DeletableTaskId = { type: 'DeletableTask'; val: string };
 
-export const taskModel = {
+export const taskMethod = {
   create: (user: User, label: string, data: MultipartFile | undefined): TaskModel => ({
     id: randomUUID(),
     done: false,

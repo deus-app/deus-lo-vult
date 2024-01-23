@@ -1,9 +1,9 @@
+import { userAtom } from 'atoms/user';
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
-import { userAtom } from '../atoms/user';
-import { apiClient } from '../utils/apiClient';
-import { returnNull } from '../utils/returnNull';
-import { supabase } from '../utils/supabase';
+import { apiClient } from 'utils/apiClient';
+import { returnNull } from 'utils/returnNull';
+import { supabase } from 'utils/supabase';
 
 export const AuthLoader = () => {
   const [user, setUser] = useAtom(userAtom);

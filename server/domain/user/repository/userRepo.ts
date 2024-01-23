@@ -1,6 +1,6 @@
 import type { User as PrismaUser } from '@prisma/client';
+import type { User } from 'api/@types';
 import { prismaClient } from 'service/prismaClient';
-import type { User } from '../../../api/@types';
 
 const toModel = (prismaUser: PrismaUser): User => ({
   id: prismaUser.id,

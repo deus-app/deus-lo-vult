@@ -1,4 +1,4 @@
-import { taskUseCase } from '../../../domain/task/useCase/taskUseCase';
+import { taskUseCase } from 'domain/task/useCase/taskUseCase';
 import { defineController } from './$relay';
 
 export default defineController(() => ({

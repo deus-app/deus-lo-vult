@@ -3,13 +3,12 @@ import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
+import 'styles/chat-ui-kit,css';
+import 'styles/globals.css';
 import { gaPageview } from 'utils/gtag';
-import '../styles/chat-ui-kit.css';
-import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const SafeHydrate = dynamic(() => import('../components/SafeHydrate'), { ssr: false });
+  const SafeHydrate = dynamic(() => import('components/SafeHydrate'), { ssr: false });
   const router = useRouter();
 
   useEffect(() => {

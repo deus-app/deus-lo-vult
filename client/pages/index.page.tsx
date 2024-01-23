@@ -6,13 +6,12 @@ import {
   Message,
   MessageList,
 } from '@chatscope/chat-ui-kit-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-
 import type { ServiceModel } from 'api/@types';
 import { NameLabel } from 'components/NameLabel/NameLabel';
 import { StatusIcon } from 'components/StatusIcon/StatusIcon';
 import { Spacer } from 'features/Spacer';
 import { ChatGPTIcon } from 'features/icons/ChatGPTIcon';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 import { returnNull } from 'utils/returnNull';
 import styles from './index.module.css';

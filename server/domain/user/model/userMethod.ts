@@ -1,8 +1,8 @@
-import type { User } from '../../../api/@types';
+import type { User } from 'api/@types';
 
 export type JwtUser = { sub: string; email: string; role: 'authenticated' | 'anon' };
 
-export const userModel = {
+export const userMethod = {
   create: (jwtUser: JwtUser): User => {
     return {
       id: jwtUser.sub,

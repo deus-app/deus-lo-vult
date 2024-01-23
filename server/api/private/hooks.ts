@@ -1,8 +1,8 @@
+import type { User } from 'api/@types';
 import assert from 'assert';
-import type { JwtUser } from '../../domain/user/model/userModel';
-import { userRepo } from '../../domain/user/repository/userRepo';
-import type { JWT_PROP_NAME } from '../../service/constants';
-import type { User } from '../@types';
+import type { JwtUser } from 'domain/user/model/userMethod';
+import { userRepo } from 'domain/user/repository/userRepo';
+import type { JWT_PROP_NAME } from 'service/constants';
 import { defineHooks } from './$relay';
 
 export type AdditionalRequest = {

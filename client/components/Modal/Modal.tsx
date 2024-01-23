@@ -1,6 +1,6 @@
+import { Portal } from 'components/Portal';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
-import { Portal } from '../Portal';
 import styles from './Modal.module.css';
 
 export const ModalHeader = (props: { text: string }) => {

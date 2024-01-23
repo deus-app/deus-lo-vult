@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { userUseCase } from '../../domain/user/useCase/userUseCase';
+import { userUseCase } from 'domain/user/useCase/userUseCase';
 import { defineController } from './$relay';
 
 export default defineController(() => ({

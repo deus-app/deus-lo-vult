@@ -1,4 +1,4 @@
-import { taskRepo } from '../../../domain/task/repository/taskRepo';
+import { taskRepo } from 'domain/task/repository/taskRepo';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
