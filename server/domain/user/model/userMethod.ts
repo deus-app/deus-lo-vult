@@ -1,12 +1,11 @@
 import type { User } from 'api/@types';
 
-export type JwtUser = { sub: string; email: string; role: 'authenticated' | 'anon' };
+export type JwtUser = { sub: string; role: 'authenticated' | 'anon' };
 
 export const userMethod = {
   create: (jwtUser: JwtUser): User => {
     return {
       id: jwtUser.sub,
-      email: jwtUser.email,
       name: jwtUser.sub.split('-')[0],
     };
   },
