@@ -1,12 +1,11 @@
 import type { User } from 'api/@types';
 import assert from 'assert';
-import type { JwtUser } from 'domain/user/model/userMethod';
-import { userRepo } from 'domain/user/repository/userRepo';
 import type { JWT_PROP_NAME } from 'service/constants';
+import { prismaClient } from 'service/prismaClient';
 import { defineHooks } from './$relay';
 
 export type AdditionalRequest = {
-  [Key in typeof JWT_PROP_NAME]: JwtUser;
+  [Key in typeof JWT_PROP_NAME]: { sub: string; role: 'authenticated' | 'anon' };
 } & { user: User };
 
 export default defineHooks(() => ({
@@ -21,7 +20,7 @@ export default defineHooks(() => ({
   preHandler: async (req, res) => {
     assert(req.jwtUser);
 
-    const user = await userRepo.findById(req.jwtUser.sub);
+    const user = await prismaClient.user.findUnique({ where: { id: req.jwtUser.sub } });
 
     if (user === null) {
       res.status(401).send();
