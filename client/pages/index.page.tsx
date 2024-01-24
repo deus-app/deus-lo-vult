@@ -79,10 +79,10 @@ const Home = () => {
           </>
         )}
       </div>
-      <div style={{ flex: 1, position: 'relative' }}>
+      <div style={{ height: 'calc(100vh - 48px)', position: 'relative' }}>
         <MainContainer className={styles.mainContainer}>
           <ChatContainer style={{ background: 'transparent' }}>
-            <MessageList style={{ background: 'transparent' }}>
+            <MessageList autoScrollToBottom={true} style={{ background: 'transparent' }}>
               {currentService && (
                 <Message model={{ type: 'custom' } as MessageModel} avatarPosition="tl">
                   <Avatar>
