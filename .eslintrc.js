@@ -23,6 +23,14 @@ module.exports = {
     ecmaFeatures: { jsx: true },
   },
   rules: {
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector:
+          "TSAsExpression[typeAnnotation.type='TSTypeReference'] > TSAsExpression[typeAnnotation.type='TSUnknownKeyword']",
+        message: 'No type assertion by unknown',
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/self-closing-comp': 'error',
