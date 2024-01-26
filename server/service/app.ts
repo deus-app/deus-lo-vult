@@ -4,11 +4,11 @@ import cors from '@fastify/cors';
 import fastifyEtag from '@fastify/etag';
 import helmet from '@fastify/helmet';
 import fastifyJwt from '@fastify/jwt';
+import { appUseCase } from 'domain/useCase/appUseCase';
 import type { FastifyInstance, FastifyServerFactory } from 'fastify';
 import Fastify from 'fastify';
 import { API_BASE_PATH, CORS_ORIGIN, CREATIO_ORIGIN, SUPABASE_JWT_SECRET } from 'service/envValues';
 import { COOKIE_NAME, JWT_PROP_NAME } from './constants';
-import { appUseCase } from 'domain/useCase/appUseCase';
 
 export const initServer = (serverFactory?: FastifyServerFactory): FastifyInstance => {
   const app = Fastify({ serverFactory });
