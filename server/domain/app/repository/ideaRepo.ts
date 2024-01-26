@@ -1,4 +1,4 @@
-import { prismaClient } from '../../service/prismaClient';
+import { prismaClient } from '../../../service/prismaClient';
 
 export const ideaRepo = {
   save: async (

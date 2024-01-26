@@ -1,4 +1,4 @@
-import { prismaClient } from '../../service/prismaClient';
+import { prismaClient } from '../../../service/prismaClient';
 
 export const feedbackRepo = {
   save: async (id: string, feedback: string, ideaId: string): Promise<void> => {

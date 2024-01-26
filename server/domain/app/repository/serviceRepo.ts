@@ -3,7 +3,7 @@ import type { Feedback, Prisma, Service } from '@prisma/client';
 import type { ServiceModel } from 'api/@types';
 import { IDEA_STATUS, SERVICE_STATUS } from 'api/@types';
 import { z } from 'zod';
-import { prismaClient } from '../../service/prismaClient';
+import { prismaClient } from '../../../service/prismaClient';
 
 const toModel = (
   service: Service & {

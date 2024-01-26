@@ -1,5 +1,5 @@
-import { creatioRepo } from 'domain/app/creatioRepo';
 import { llmRepo } from 'domain/llm/llmRepo';
+import { creatioRepo } from '../repository/creatioRepo';
 
 export const appUseCase = {
   vult: async (): Promise<void> => {

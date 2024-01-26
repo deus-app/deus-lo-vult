@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
 import { z } from 'zod';
-import { feedbackRepo } from '../app/feedbackRepo';
-import { ideaRepo } from '../app/ideaRepo';
-import { serviceRepo } from '../app/serviceRepo';
+import { feedbackRepo } from '../app/repository/feedbackRepo';
+import { ideaRepo } from '../app/repository/ideaRepo';
+import { serviceRepo } from '../app/repository/serviceRepo';
 import { invokeOrThrow } from './invokeOrThrow';
 import { prompts } from './prompts';
 

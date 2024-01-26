@@ -1,4 +1,4 @@
-import { CREATIO_API_ORIGIN, DEUS_LO_VULT_TOKEN } from '../../service/envValues';
+import { CREATIO_API_ORIGIN, DEUS_LO_VULT_TOKEN } from '../../../service/envValues';
 
 export const creatioRepo = {
   post: async (body: string): Promise<void> => {
