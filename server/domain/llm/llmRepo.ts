@@ -11,7 +11,10 @@ export const llmRepo = {
     name: string;
     similarName: string;
   }> => {
-    const webServiceAreaValidator = z.object({ webServiceArea: z.string() });
+    const webServiceAreaValidator = z.object({
+      webServiceArea: z.string(),
+      selectReason: z.string(),
+    });
     const webServiceIdeaValidater = z.object({ ideaName: z.string(), description: z.string() });
     const feedbackValidator = z.object({ feedback: z.string(), complete: z.boolean() });
     const completeValidator = z.object({ name: z.string(), similarName: z.string() });
@@ -22,7 +25,7 @@ export const llmRepo = {
     await serviceRepo.save(serviceId, serviceArea.webServiceArea, 'unfinished');
 
     let serviceIdea = await invokeOrThrow(
-      prompts.webServiceIdea(serviceArea.webServiceArea),
+      prompts.webServiceIdea(serviceArea.webServiceArea, serviceArea.selectReason),
       webServiceIdeaValidater
     );
 

@@ -23,7 +23,8 @@ ${codeBlocks.valToJson(jsonSchema)}
       messages: [
         {
           role: 'system',
-          content: 'あなたは優れたアイディアを出すアイディアマンとしてアイディアに意見をください。',
+          content:
+            'あなたは優れたアイディアを出すアイディアマンとしてアイディアに意見をください。返答は必ず日本語で答えてください',
         },
         { role: 'user', content: input },
       ],
@@ -31,6 +32,7 @@ ${codeBlocks.valToJson(jsonSchema)}
     .then((response) => {
       const content = response.choices[0].message.content;
       if (!content) throw new Error('No content');
+      console.log(content);
 
       return validator.parse(JSON.parse(content));
     })

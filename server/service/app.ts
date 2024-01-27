@@ -4,7 +4,7 @@ import cors from '@fastify/cors';
 import fastifyEtag from '@fastify/etag';
 import helmet from '@fastify/helmet';
 import fastifyJwt from '@fastify/jwt';
-import { appUseCase } from 'domain/useCase/appUseCase';
+import { appUseCase } from 'domain/app/useCase/appUseCase';
 import type { FastifyInstance, FastifyServerFactory } from 'fastify';
 import Fastify from 'fastify';
 import { API_BASE_PATH, CORS_ORIGIN, CREATIO_ORIGIN, SUPABASE_JWT_SECRET } from 'service/envValues';
