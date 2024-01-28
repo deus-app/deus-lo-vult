@@ -54,16 +54,16 @@ export const serviceRepo = {
       update: { name, similarName, status },
     });
   },
-  findAll: (tx: Prisma.TransactionClient, limit?: number): Promise<ServiceModel[]> =>
-    tx.service
+  findAll: async (tx: Prisma.TransactionClient, limit?: number): Promise<ServiceModel[]> =>
+    await tx.service
       .findMany({
         take: limit,
         include: { ideas: { include: { feedback: true } } },
         orderBy: { createdAt: 'desc' },
       })
       .then((services) => services.map(toModel)),
-  findAllAreas: (tx: Prisma.TransactionClient): Promise<string[]> =>
-    tx.service
+  findAllAreas: async (tx: Prisma.TransactionClient): Promise<string[]> =>
+    await tx.service
       .findMany({ select: { area: true }, distinct: ['area'] })
       .then((services) => services.map((s) => s.area)),
 };
