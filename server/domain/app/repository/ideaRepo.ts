@@ -6,7 +6,7 @@ export const ideaRepo = {
     name: string,
     description: string,
     status: 'complete' | 'incomplete' | 'unreceived',
-    serviceId: string
+    serviceId: number
   ): Promise<void> => {
     await prismaClient.idea.upsert({
       where: { id },

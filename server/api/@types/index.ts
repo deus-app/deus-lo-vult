@@ -17,7 +17,7 @@ export const SERVICE_STATUS = ['finished', 'unfinished'] as const;
 export const IDEA_STATUS = ['complete', 'incomplete', 'unreceived'] as const;
 
 export type ServiceModel = {
-  id: string;
+  id: number;
   area: string;
   name: string | undefined;
   similarName: string | undefined;

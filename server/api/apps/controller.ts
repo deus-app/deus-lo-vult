@@ -1,10 +1,10 @@
-import { serviceRepo } from 'domain/app/repository/serviceRepo';
+import { serviceQuery } from 'domain/app/query/serviceQuery';
 import { prismaClient } from 'service/prismaClient';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
   get: async ({ query }) => ({
     status: 200,
-    body: await serviceRepo.findAll(prismaClient, query?.limit),
+    body: await serviceQuery.findAll(prismaClient, query?.limit),
   }),
 }));

@@ -25,7 +25,7 @@ model Task {
 }
 
 model Service {
-  id          String   @id
+  id          Int      @id
   area        String
   name        String?
   similarName String?
@@ -41,7 +41,7 @@ model Idea {
   status      String
   createdAt   DateTime
   feedback    Feedback?
-  serviceId   String
+  serviceId   Int
   Service     Service   @relation(fields: [serviceId], references: [id])
 }
 

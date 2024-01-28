@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { serviceQuery } from 'domain/app/query/serviceQuery';
 import { prismaClient } from 'service/prismaClient';
 import { z } from 'zod';
 import { feedbackRepo } from '../app/repository/feedbackRepo';
@@ -19,10 +20,10 @@ export const llmRepo = {
     const webServiceIdeaValidater = z.object({ ideaName: z.string(), description: z.string() });
     const feedbackValidator = z.object({ feedback: z.string(), complete: z.boolean() });
     const completeValidator = z.object({ name: z.string(), similarName: z.string() });
-    const serviceId = randomUUID();
+    const serviceId = (await serviceQuery.countAll(prismaClient)) + 1;
     let ideaId = randomUUID();
 
-    const existingServiceAreas = await serviceRepo.findAllAreas(prismaClient);
+    const existingServiceAreas = await serviceQuery.findAllAreas(prismaClient);
     const serviceArea = await invokeOrThrow(
       prompts.webServiceArea(existingServiceAreas),
       webServiceAreaValidator
