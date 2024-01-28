@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { prismaClient } from 'service/prismaClient';
 import { z } from 'zod';
 import { feedbackRepo } from '../app/repository/feedbackRepo';
 import { ideaRepo } from '../app/repository/ideaRepo';
@@ -21,7 +22,11 @@ export const llmRepo = {
     const serviceId = randomUUID();
     let ideaId = randomUUID();
 
-    const serviceArea = await invokeOrThrow(prompts.webServiceArea(), webServiceAreaValidator);
+    const existingServiceAreas = await serviceRepo.findAllAreas(prismaClient);
+    const serviceArea = await invokeOrThrow(
+      prompts.webServiceArea(existingServiceAreas),
+      webServiceAreaValidator
+    );
     await serviceRepo.save(serviceId, serviceArea.webServiceArea, 'unfinished');
 
     let serviceIdea = await invokeOrThrow(

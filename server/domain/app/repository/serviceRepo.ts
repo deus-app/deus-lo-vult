@@ -62,4 +62,8 @@ export const serviceRepo = {
         orderBy: { createdAt: 'desc' },
       })
       .then((services) => services.map(toModel)),
+  findAllAreas: (tx: Prisma.TransactionClient): Promise<string[]> =>
+    tx.service
+      .findMany({ select: { area: true }, distinct: ['area'] })
+      .then((services) => services.map((s) => s.area)),
 };
