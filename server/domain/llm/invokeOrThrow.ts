@@ -32,7 +32,6 @@ ${codeBlocks.valToJson(jsonSchema)}
     .then((response) => {
       const content = response.choices[0].message.content;
       if (!content) throw new Error('No content');
-      console.log(content);
 
       return validator.parse(JSON.parse(content));
     })

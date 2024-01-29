@@ -11,6 +11,7 @@ import { NameLabel } from 'components/NameLabel/NameLabel';
 import { StatusIcon } from 'components/StatusIcon/StatusIcon';
 import { Spacer } from 'features/Spacer';
 import { ChatGPTIcon } from 'features/icons/ChatGPTIcon';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 import { returnNull } from 'utils/returnNull';
@@ -18,40 +19,33 @@ import styles from './index.module.css';
 
 // eslint-disable-next-line complexity
 const Home = () => {
+  const router = useRouter();
   const [services, setServices] = useState<ServiceModel[]>([]);
   const [currentServiceId, setCurrentServiceId] = useState<number>();
-  const sortedSeedServices = useMemo(
-    () => services.sort((a, b) => a.createdAt - b.createdAt),
-    [services]
-  );
-
   const currentService = useMemo(() => {
     if (currentServiceId === undefined) return undefined;
-    const index = currentServiceId - 1;
-    if (index >= 0 && index < sortedSeedServices.length) {
-      return sortedSeedServices[index];
-    }
-    return undefined;
-  }, [sortedSeedServices, currentServiceId]);
-
+    return services.find((service) => service.id === currentServiceId);
+  }, [services, currentServiceId]);
   const fetchServices = useCallback(async () => {
     const resuktServices = await apiClient.apps.$get().catch(returnNull);
 
     if (resuktServices === null) return;
     setServices(resuktServices);
-
     if (currentServiceId === undefined) {
       setCurrentServiceId(resuktServices.length);
     }
   }, [currentServiceId]);
 
-  // eslint-disable-next-line complexity
-  const changeService = (direction: string) => {
-    if (currentServiceId === undefined) return;
-    if (direction === 'next' && currentServiceId < services.length) {
-      setCurrentServiceId(currentServiceId + 1);
-    } else if (direction === 'prev' && currentServiceId > 1) {
-      setCurrentServiceId(currentServiceId - 1);
+  const increaseServiceId = () => {
+    if (currentServiceId && currentServiceId < services.length) {
+      const newServiceId = currentServiceId + 1;
+      router.push(`/?id=${newServiceId}`, undefined, { shallow: true });
+    }
+  };
+  const decreaseServiceId = () => {
+    if (currentServiceId && currentServiceId > 1) {
+      const newServiceId = currentServiceId - 1;
+      router.push(`/?id=${newServiceId}`, undefined, { shallow: true });
     }
   };
 
@@ -63,6 +57,13 @@ const Home = () => {
     return () => clearInterval(intervalId);
   }, [fetchServices]);
 
+  useEffect(() => {
+    const queryId = parseInt(router.query.id as string);
+    if (!isNaN(queryId) && queryId >= 1 && queryId <= services.length) {
+      setCurrentServiceId(queryId);
+    }
+  }, [router.query.id, services.length]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -70,11 +71,11 @@ const Home = () => {
           <>
             <StatusIcon status={currentService.status} />
             <Spacer axis="x" size={12} />
-            <span className={styles.indexLabel}>No.{currentServiceId}</span>
+            <span className={styles.indexLabel}>No.{currentService.id}</span>
             <Spacer axis="x" size={12} />
-            <button onClick={() => changeService('prev')}>&lt;</button>
+            <button onClick={decreaseServiceId}>&lt;</button>
             <Spacer axis="x" size={12} />
-            <button onClick={() => changeService('next')}>&gt;</button>
+            <button onClick={increaseServiceId}>&gt;</button>
           </>
         )}
       </div>
@@ -134,7 +135,7 @@ const Home = () => {
                     </Message>
                   ),
                 ])}
-              {currentService && currentService.name && currentService.similarName && (
+              {currentService && currentService.status === 'finished' && (
                 <Message model={{ type: 'custom' } as MessageModel} avatarPosition="tl">
                   <Avatar>
                     <Spacer axis="y" size={26} />

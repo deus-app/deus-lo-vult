@@ -48,8 +48,6 @@ export const llmRepo = {
         'unreceived',
         serviceId
       );
-      console.log('ideaName', serviceIdea.ideaName);
-      console.log('description', serviceIdea.description);
       const feedbackId = randomUUID();
       followUp = await invokeOrThrow(
         prompts.feedback(serviceIdea.ideaName, serviceIdea.description),
