@@ -4,7 +4,7 @@ export const serviceRepo = {
   save: async (
     id: number,
     area: string,
-    status: 'finished' | 'unfinished',
+    status: 'finished' | 'unfinished' | 'failed',
     name?: string,
     similarName?: string
   ): Promise<void> => {

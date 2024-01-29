@@ -24,5 +24,6 @@ export const StatusIcon = (props: { status: ServiceModel['status'] }) => {
   return {
     finished: <CheckMark />,
     unfinished: <div className={styles.loader} />,
+    failed: <CrossMark />,
   }[props.status];
 };

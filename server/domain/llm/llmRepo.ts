@@ -12,7 +12,7 @@ export const llmRepo = {
   initConversation: async (): Promise<{
     name: string;
     similarName: string;
-  }> => {
+  } | void> => {
     const webServiceAreaValidator = z.object({
       webServiceArea: z.string(),
       selectReason: z.string(),
@@ -40,6 +40,8 @@ export const llmRepo = {
       complete: boolean;
     };
 
+    let loopCount = 0;
+    const loopLimit = 10;
     do {
       await ideaRepo.save(
         ideaId,
@@ -63,11 +65,15 @@ export const llmRepo = {
       await feedbackRepo.save(feedbackId, followUp.feedback, ideaId);
 
       if (!followUp.complete) {
+        loopCount++;
         ideaId = randomUUID();
         serviceIdea = await invokeOrThrow(
           prompts.improvement(serviceIdea.ideaName, serviceIdea.description, followUp.feedback),
           webServiceIdeaValidater
         );
+        if (loopCount > loopLimit) {
+          return await serviceRepo.save(serviceId, serviceArea.webServiceArea, 'failed');
+        }
       }
     } while (!followUp.complete);
 

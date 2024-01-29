@@ -13,7 +13,7 @@ export type TaskEntity = {
   author: UserEntity;
 };
 
-export const SERVICE_STATUS = ['finished', 'unfinished'] as const;
+export const SERVICE_STATUS = ['finished', 'unfinished', 'failed'] as const;
 export const IDEA_STATUS = ['complete', 'incomplete', 'unreceived'] as const;
 
 export type ServiceModel = {
@@ -21,7 +21,7 @@ export type ServiceModel = {
   area: string;
   name: string | undefined;
   similarName: string | undefined;
-  status: 'finished' | 'unfinished';
+  status: 'finished' | 'unfinished' | 'failed';
   createdAt: number;
   ideas: IdeaModel[];
 };
