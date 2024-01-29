@@ -20,30 +20,32 @@ import styles from './index.module.css';
 // eslint-disable-next-line complexity
 const Home = () => {
   const router = useRouter();
+  const queryId = parseInt(router.query.id as string);
   const [services, setServices] = useState<ServiceModel[]>([]);
-  const [currentServiceId, setCurrentServiceId] = useState<number>();
+  const [currentServiceId, setCurrentServiceId] = useState<number>(0);
   const currentService = useMemo(() => {
-    if (currentServiceId === undefined) return undefined;
     return services.find((service) => service.id === currentServiceId);
   }, [services, currentServiceId]);
   const fetchServices = useCallback(async () => {
-    const resuktServices = await apiClient.apps.$get().catch(returnNull);
+    const resultServices = await apiClient.apps.$get().catch(returnNull);
 
-    if (resuktServices === null) return;
-    setServices(resuktServices);
-    if (currentServiceId === undefined) {
-      setCurrentServiceId(resuktServices.length);
+    if (resultServices === null) return;
+    setServices(resultServices);
+    if (!isNaN(queryId) && queryId >= 1 && queryId <= resultServices.length) {
+      setCurrentServiceId(queryId);
+    } else {
+      setCurrentServiceId(resultServices.length);
     }
-  }, [currentServiceId]);
+  }, [queryId]);
 
   const increaseServiceId = () => {
-    if (currentServiceId && currentServiceId < services.length) {
+    if (currentServiceId < services.length) {
       const newServiceId = currentServiceId + 1;
       router.push(`/?id=${newServiceId}`, undefined, { shallow: true });
     }
   };
   const decreaseServiceId = () => {
-    if (currentServiceId && currentServiceId > 1) {
+    if (currentServiceId > 1) {
       const newServiceId = currentServiceId - 1;
       router.push(`/?id=${newServiceId}`, undefined, { shallow: true });
     }
@@ -58,11 +60,10 @@ const Home = () => {
   }, [fetchServices]);
 
   useEffect(() => {
-    const queryId = parseInt(router.query.id as string);
     if (!isNaN(queryId) && queryId >= 1 && queryId <= services.length) {
       setCurrentServiceId(queryId);
     }
-  }, [router.query.id, services.length]);
+  }, [queryId, services.length]);
 
   return (
     <div className={styles.container}>
